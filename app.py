@@ -4,8 +4,8 @@ import pandas as pd
 
 app = Flask(__name__)
 
-df = pd.read_csv("address.csv")
-df.to_csv("address.csv", header=["First Name", "Last Name", "Address", "Town", "Position", "Zip Code"], index = False)
+df = pd.read_csv("address.csv" , header = None)
+df.columns = header=["First Name", "Last Name", "Address", "Town", "Position", "Zip Code"]
 df["Name"] = df["First Name"] +" "+ df["Last Name"]
 df.drop(columns=["First Name", "Last Name"], inplace=True)
 
