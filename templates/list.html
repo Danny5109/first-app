@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+   <body>
+      <table border = 1>
+         <thead>
+            <td>Name</td>
+            <td>Door No></td>
+            <td>Address</td>
+            <td>Town</td>
+            <td>State</td>
+            <td>Zip Code</td>
+         </thead>
+         {% for row in rows %}
+         <tr>
+            <td>{{row["name"]}}</td>
+            <td>{{row["door_num"]}}-</td>
+            <td> {{ row["address"]}}</td>
+            <td>{{row['town']}}</td>
+            <td> {{ row["state"]}}</td>
+            <td>{{row['zcode']}}</td>	
+         </tr>
+         {% endfor %}
+      </table>
+      <a href = "/">Go back to home page</a>
+   </body>
+</html>
