@@ -4,23 +4,31 @@ import pandas as pd
 
 app = Flask(__name__)
 
-df = pd.read_csv("address.csv" , header = None)
-df.columns = header=["First Name", "Last Name", "Address", "Town", "State", "Zip Code"]
-df["Name"] = df["First Name"] +" "+ df["Last Name"]
-df.drop(columns=["First Name", "Last Name"], inplace=True)
+df = pd.read_csv("address.csv")
 
-full_name = df.pop('Name')
-df.insert(0, 'Name', full_name)
+def csv_task():
+    df.columns = header=["First Name", "Last Name", "Address", "Town", "State", "Zip Code"]
+    df["Name"] = df["First Name"] +" "+ df["Last Name"]
+    df.drop(columns=["First Name", "Last Name"], inplace=True)
 
-df1 = df['Address'].str.extract('(?P<Number>\d+)(?P<Address>.*)', expand=True)
-df.drop(columns=["Address"], inplace=True)
+    full_name = df.pop('Name')
+    df.insert(0, 'Name', full_name)
 
-number = df1.pop('Number')
-df.insert(1, 'Number', number)
+    df1 = df['Address'].str.extract('(?P<Number>\d+)(?P<Address>.*)', expand=True)
+    df.drop(columns=["Address"], inplace=True)
 
-address = df1.pop('Address')
-df.insert(2, 'Address', address)
-df.to_csv("address.csv", index=False)
+    number = df1.pop('Number')
+    df.insert(1, 'Number', number)
+
+    address = df1.pop('Address')
+    df.insert(2, 'Address', address)
+    df.to_csv("address.csv", index=False)
+    print(df)
+
+if 'Name' in df.columns:
+    print(df)
+else:
+    csv_task()
 
 @app.route('/', methods=("POST", "GET"))
 def html_table():
